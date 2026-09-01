@@ -5,9 +5,9 @@
 
 <br>
 
-<!-- NAME / TAGLINE - animated typing (WHITE) -->
+<!-- NAME / TAGLINE - animated typing (CINZEL DECORATIVE / ENGRAVED WHITE) -->
 <a href="https://github.com/ratik12">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=26&duration=2600&pause=900&color=FFFFFF&center=true&vCenter=true&width=580&lines=Ratik+Rauniyar;Machine+Learning+%26+Software+Engineer;Building+Intelligent+Systems;01100011+01101111+01100100+01101101+01100101" alt="typing banner">
+  <img src="https://readme-typing-svg.demolab.com?font=Cinzel+Decorative&weight=700&size=25&duration=2600&pause=900&color=FFFFFF&center=true&vCenter=true&width=620&lines=Ratik+Rauniyar;Machine+Learning+%26+Software+Engineer;Building+Intelligent+Systems;01100011+01101111+01100100+01101101+01100101" alt="typing banner">
 </a>
 
 <br>
