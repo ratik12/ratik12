@@ -307,17 +307,19 @@ def main(argv=None):
         page += 1
     owned = [r for r in repos if not r["fork"]]
     stars = sum(r["stargazers_count"] for r in owned)
+    forks = sum(r["forks_count"] for r in owned)
+    distinct_langs = len(set(r["language"] for r in owned if r.get("language")))
 
     tiles = [("Total stars", f"{stars:,}"),
              ("Public repos", f"{user['public_repos']:,}"),
-             ("Followers", f"{user['followers']:,}")]
+             ("Languages", f"{distinct_langs:,}")]
 
     contrib = fetch_contributions(args.user, token)
     if contrib:
         total, current, longest = contrib
         tiles += [("Contributions (1y)", f"{total:,}"),
-                  ("Current streak", f"{current:,}"),
-                  ("Longest streak", f"{longest:,}")]
+                  ("Total forks", f"{forks:,}"),
+                  ("Followers", f"{user['followers']:,}")]
     else:
         print("  note: no usable token, skipping contribution tiles", file=sys.stderr)
 
