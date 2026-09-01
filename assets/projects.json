@@ -1,0 +1,21 @@
+{
+  "_comment": "Featured repos, in README order. Star/fork/language come live from the API on every run.",
+  "projects": [
+    {
+      "repo": "INBREAST_Project",
+      "description": "Lesion-aware mammography cancer detection model trained on the INBreast dataset using deep learning."
+    },
+    {
+      "repo": "movie-recommendation",
+      "description": "Personalized movie recommendation engine powered by collaborative filtering and content similarity models."
+    },
+    {
+      "repo": "predictive-maintenance",
+      "description": "Telemetry-driven predictive maintenance pipeline forecasting equipment failure and anomalies."
+    },
+    {
+      "repo": "-truthbiotech-vercel",
+      "description": "High-performance biotechnology web platform engineered with TypeScript, React, and modern UI tooling."
+    }
+  ]
+}

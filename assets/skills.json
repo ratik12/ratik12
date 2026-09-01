@@ -1,0 +1,12 @@
+{
+  "title": "Skill Radar",
+  "axes": [
+    { "label": "Python",       "value": 90 },
+    { "label": "Machine Learning", "value": 88 },
+    { "label": "Deep Learning", "value": 84 },
+    { "label": "Computer Vision", "value": 80 },
+    { "label": "DSA",          "value": 82 },
+    { "label": "TypeScript",   "value": 78 },
+    { "label": "APIs & Systems", "value": 76 }
+  ]
+}
