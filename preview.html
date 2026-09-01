@@ -23,12 +23,14 @@
 <h1>profile assets — local preview</h1>
 <p class="missing">Each asset is shown against both a dark and a light card, the way GitHub will render it.</p>
 
-<h2>portrait <button id="replay">replay the load-in</button></h2>
+<h2>portrait (head & shoulders crop) <button id="replay">replay the load-in</button></h2>
 <div class="row">
   <div class="card"><span class="tag">portrait.svg (on dark)</span>
-    <img class="portrait" src="assets/portrait.svg" width="300" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'missing',textContent:'not generated yet — run dotify.py'}))"></div>
+    <img class="portrait" src="assets/portrait.svg" width="300"></div>
   <div class="card light"><span class="tag" style="color:#57606a">portrait.svg (on light)</span>
-    <img class="portrait" src="assets/portrait.svg" width="300" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'missing',textContent:'not generated yet'}))"></div>
+    <img class="portrait" src="assets/portrait.svg" width="300"></div>
+  <div class="card"><span class="tag">portrait-upper.svg (vest / torso crop)</span>
+    <img class="portrait" src="assets/portrait-upper.svg" width="300"></div>
 </div>
 <script>
   // The row-reveal runs once per image load, so force a fresh load to rewatch it.
