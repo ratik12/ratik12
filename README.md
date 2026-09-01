@@ -16,8 +16,8 @@
 <br>
 
 <!-- SOCIALS -->
-<a href="https://linkedin.com/in/ratik12"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-<a href="mailto:ratikrauniyar@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"></a>
+<a href="https://www.linkedin.com/in/ratik-rauniyar-005ab5217"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+<a href="mailto:ratik.rauniyar@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"></a>
 <a href="https://github.com/ratik12"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
 
 <img src="https://komarev.com/ghpvc/?username=ratik12&style=flat&color=39d353&label=profile+views" alt="profile views">
@@ -34,7 +34,7 @@ $ cat about.txt
 
 Hi, I'm **Ratik Rauniyar**. I build machine learning pipelines, deep learning architectures, and scalable software systems.
 
-- Currently building **[INBREAST_Project](https://github.com/ratik12/INBREAST_Project)** and **[movie-recommendation](https://github.com/ratik12/movie-recommendation)**
+- Currently building **[Swasthall](https://github.com/ratik12/swasthall-app)** and **[Mero Bites](https://github.com/ratik12/MERO-BITES)**
 - Exploring **Deep Learning, Medical Computer Vision & MLOps**
 - Focus: **Translating machine intelligence into real-world software**
 - Fun fact: **01100010 01110101 01101001 01101100 01100100 (build)**
@@ -138,6 +138,26 @@ Hi, I'm **Ratik Rauniyar**. I build machine learning pipelines, deep learning ar
 <table>
 <tr>
 <td width="50%">
+  <a href="https://github.com/ratik12/swasthall-app">
+    <picture>
+      <source media="(prefers-color-scheme: dark)"  srcset="assets/card-swasthall-app-dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="assets/card-swasthall-app-light.svg">
+      <img src="assets/card-swasthall-app-dark.svg" width="420" alt="swasthall-app">
+    </picture>
+  </a>
+</td>
+<td width="50%">
+  <a href="https://github.com/ratik12/MERO-BITES">
+    <picture>
+      <source media="(prefers-color-scheme: dark)"  srcset="assets/card-MERO-BITES-dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="assets/card-MERO-BITES-light.svg">
+      <img src="assets/card-MERO-BITES-dark.svg" width="420" alt="MERO-BITES">
+    </picture>
+  </a>
+</td>
+</tr>
+<tr>
+<td width="50%">
   <a href="https://github.com/ratik12/INBREAST_Project">
     <picture>
       <source media="(prefers-color-scheme: dark)"  srcset="assets/card-INBREAST_Project-dark.svg">
@@ -147,31 +167,11 @@ Hi, I'm **Ratik Rauniyar**. I build machine learning pipelines, deep learning ar
   </a>
 </td>
 <td width="50%">
-  <a href="https://github.com/ratik12/movie-recommendation">
-    <picture>
-      <source media="(prefers-color-scheme: dark)"  srcset="assets/card-movie-recommendation-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="assets/card-movie-recommendation-light.svg">
-      <img src="assets/card-movie-recommendation-dark.svg" width="420" alt="movie-recommendation">
-    </picture>
-  </a>
-</td>
-</tr>
-<tr>
-<td width="50%">
   <a href="https://github.com/ratik12/predictive-maintenance">
     <picture>
       <source media="(prefers-color-scheme: dark)"  srcset="assets/card-predictive-maintenance-dark.svg">
       <source media="(prefers-color-scheme: light)" srcset="assets/card-predictive-maintenance-light.svg">
       <img src="assets/card-predictive-maintenance-dark.svg" width="420" alt="predictive-maintenance">
-    </picture>
-  </a>
-</td>
-<td width="50%">
-  <a href="https://github.com/ratik12/-truthbiotech-vercel">
-    <picture>
-      <source media="(prefers-color-scheme: dark)"  srcset="assets/card--truthbiotech-vercel-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="assets/card--truthbiotech-vercel-light.svg">
-      <img src="assets/card--truthbiotech-vercel-dark.svg" width="420" alt="-truthbiotech-vercel">
     </picture>
   </a>
 </td>
@@ -182,10 +182,10 @@ Hi, I'm **Ratik Rauniyar**. I build machine learning pipelines, deep learning ar
 
 | project | category | stack |
 |---|---|---|
+| **[swasthall-app](https://github.com/ratik12/swasthall-app)** | Healthcare & Queueing App | `Flutter` `Supabase` `TypeScript` `WebRTC` |
+| **[MERO-BITES](https://github.com/ratik12/MERO-BITES)** | Commerce & Ordering Platform | `Next.js 16` `React 19` `Tailwind CSS` `Turso` |
 | **[INBREAST_Project](https://github.com/ratik12/INBREAST_Project)** | Cancer Detection ML | `Python` `Deep Learning` `PyTorch` |
-| **[movie-recommendation](https://github.com/ratik12/movie-recommendation)** | Recommendation Engine | `Python` `Jupyter Notebook` `Scikit-Learn` |
 | **[predictive-maintenance](https://github.com/ratik12/predictive-maintenance)** | Predictive Telemetry | `Python` `Machine Learning` `Pandas` |
-| **[-truthbiotech-vercel](https://github.com/ratik12/-truthbiotech-vercel)** | Biotechnology Platform | `TypeScript` `React` `Next.js` |
 
 </sub>
 

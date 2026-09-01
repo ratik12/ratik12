@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ratik Rauniyar | Machine Learning & Software Systems</title>
+  <meta name="description" content="Personal Command Center & Portfolio of Ratik Rauniyar — Machine Learning Engineer & Full-Stack Systems Architect." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              primary: '#0284c7', // Electric / Icy Blue
+              secondary: '#06b6d4', // Cyan
+              accent: '#38bdf8',
+              dark: '#0f172a',
+              muted: '#64748b',
+              surface: '#ffffff',
+              bg: '#f8fafc',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* Custom Futuristic Light Theme Utilities */
+    :root {
+      --bg-grid: rgba(15, 23, 42, 0.04);
+      --dot-color: rgba(15, 23, 42, 0.07);
+    }
+    
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 1px 1px, var(--dot-color) 1px, transparent 0),
+        linear-gradient(to right, var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--bg-grid) 1px, transparent 1px);
+      background-size: 32px 32px, 64px 64px, 64px 64px;
+      background-position: 0 0, 0 0, 0 0;
+    }
+
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.04), 0 4px 6px -2px rgba(15, 23, 42, 0.02);
+    }
+
+    .glass-panel-hover:hover {
+      border-color: rgba(2, 132, 199, 0.35);
+      box-shadow: 0 20px 35px -12px rgba(2, 132, 199, 0.12), 0 0 0 1px rgba(2, 132, 199, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .tech-gradient-text {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0284c7 80%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge-terminal {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      background: rgba(2, 132, 199, 0.05);
+      color: #0284c7;
+    }
+
+    .hud-bracket {
+      position: relative;
+    }
+    .hud-bracket::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px; width: 12px; height: 12px;
+      border-top: 2px solid #0284c7; border-left: 2px solid #0284c7;
+      pointer-events: none;
+    }
+    .hud-bracket::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; right: -4px; width: 12px; height: 12px;
+      border-bottom: 2px solid #0284c7; border-right: 2px solid #0284c7;
+      pointer-events: none;
+    }
+
+    /* Subtle cursor glow */
+    #cursor-glow {
+      position: fixed;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(2, 132, 199, 0.07) 0%, rgba(6, 182, 212, 0.03) 40%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      transition: width 0.3s, height 0.3s;
+    }
+
+    /* Scanline pulse on frame */
+    @keyframes scanline {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(1000%); }
+    }
+    .scan-line {
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.6), transparent);
+      animation: scanline 4s linear infinite;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="selection:bg-cyan-100 selection:text-cyan-900 relative">
+
+  <!-- Interactive Background Glow -->
+  <div id="cursor-glow"></div>
+
+  <!-- FLOATING NAVIGATION -->
+  <header class="fixed top-5 inset-x-0 z-50 flex justify-center px-4">
+    <nav class="glass-panel rounded-full px-5 py-2.5 flex items-center gap-1 sm:gap-4 text-xs sm:text-sm font-mono shadow-lg border border-slate-200/80">
+      <a href="#hero" class="text-slate-900 font-bold px-3 py-1 rounded-full hover:bg-slate-100 transition flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+        <span>RATIK.SYS</span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 hidden sm:block"></div>
+      <div class="flex items-center gap-1 sm:gap-2 text-slate-600">
+        <a href="#whoami" class="px-2.5 py-1 rounded-full hover:text-cyan-600 hover:bg-cyan-50 transition">~/about</a>
+        <a href="#projects" class="px-2.5 py-1 rounded-full hover:text-cyan-600 hover:bg-cyan-50 transition font-medium text-slate-900">~/projects</a>
+        <a href="#toolbox" class="px-2.5 py-1 rounded-full hover:text-cyan-600 hover:bg-cyan-50 transition">~/stack</a>
+        <a href="#radars" class="px-2.5 py-1 rounded-full hover:text-cyan-600 hover:bg-cyan-50 transition hidden md:inline-block">~/radars</a>
+        <a href="#contact" class="px-3 py-1 rounded-full bg-slate-900 text-white hover:bg-cyan-600 transition flex items-center gap-1">
+          <span>~/contact</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col justify-center relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Column: Command & Identity -->
+      <div class="lg:col-span-7 space-y-6 text-left">
+        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full badge-terminal font-mono">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
+          <span>SYSTEM_ID: RATIK_COMMAND // ONLINE // OPEN TO COLLAB</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight tech-gradient-text leading-[1.08]">
+          RATIK<br>RAUNIYAR
+        </h1>
+
+        <div class="font-mono text-sm sm:text-base text-slate-600 flex items-center gap-2 bg-white/70 backdrop-blur border border-slate-200/80 p-3 rounded-lg w-fit">
+          <span class="text-cyan-600 font-bold">$</span>
+          <span id="typing-tagline" class="text-slate-800">Machine Learning Engineer & Deep Learning Architect</span>
+          <span class="inline-block w-2 h-4 bg-cyan-500 animate-pulse"></span>
+        </div>
+
+        <p class="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed font-sans font-normal">
+          Building medical computer vision pipelines, real-time healthcare telemetry applications, and distributed software architectures. Transforming data intelligence into robust production software.
+        </p>
+
+        <!-- CTA & Quick Links -->
+        <div class="flex flex-wrap items-center gap-3.5 pt-2">
+          <a href="#projects" class="px-6 py-3 rounded-xl bg-slate-900 text-white font-mono text-sm hover:bg-cyan-600 transition duration-200 shadow-md flex items-center gap-2 group">
+            <span>Explore Case Studies</span>
+            <svg class="w-4 h-4 group-hover:translate-y-0.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </a>
+          
+          <a href="#terminal-section" class="px-5 py-3 rounded-xl glass-panel text-slate-800 font-mono text-sm hover:bg-white transition duration-200 flex items-center gap-2 border border-slate-200">
+            <span class="text-cyan-600">&gt;_</span>
+            <span>Interactive Terminal</span>
+          </a>
+
+          <a href="https://github.com/ratik12" target="_blank" class="p-3 rounded-xl glass-panel text-slate-700 hover:text-cyan-600 transition border border-slate-200" title="GitHub Profile">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+
+        <!-- Telemetry Stats Strip -->
+        <div class="grid grid-cols-3 gap-3 pt-6 border-t border-slate-200/80">
+          <div class="glass-panel p-3 rounded-lg text-left">
+            <div class="font-mono text-xs text-slate-500">ML_MODELS</div>
+            <div class="text-xl font-bold text-slate-900 mt-0.5">Deep Learning</div>
+          </div>
+          <div class="glass-panel p-3 rounded-lg text-left">
+            <div class="font-mono text-xs text-slate-500">TELEMETRY</div>
+            <div class="text-xl font-bold text-slate-900 mt-0.5">Realtime Apps</div>
+          </div>
+          <div class="glass-panel p-3 rounded-lg text-left">
+            <div class="font-mono text-xs text-slate-500">ARCHITECTURE</div>
+            <div class="text-xl font-bold text-slate-900 mt-0.5">Full Stack</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Profile Photo Container (Preserving Exact Unchanged Photo) -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative w-full max-w-[360px] sm:max-w-[400px]">
+          
+          <!-- Outer Futuristic Bezel -->
+          <div class="hud-bracket glass-panel p-3.5 sm:p-4 rounded-2xl relative shadow-2xl transition duration-500 hover:shadow-cyan-500/10">
+            
+            <!-- Technical Status Header -->
+            <div class="flex items-center justify-between font-mono text-[10px] text-slate-500 pb-2.5 px-1 border-b border-slate-100">
+              <span class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>
+                <span>BIO_FEED // SUBJ_01</span>
+              </span>
+              <span>768x1024 // RGB</span>
+            </div>
+
+            <!-- Image Container -->
+            <div class="relative overflow-hidden rounded-xl bg-slate-100 aspect-[3/4] mt-2 group border border-slate-200/80">
+              
+              <!-- Scanline effect -->
+              <div class="scan-line"></div>
+
+              <!-- Real, Exact, Untouched Photo -->
+              <img id="profile-img" src="assets/me.jpg" alt="Ratik Rauniyar" class="w-full h-full object-cover object-top transition duration-700 group-hover:scale-105" />
+
+              <!-- Overlay Grid Vignette -->
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-80 pointer-events-none"></div>
+
+              <!-- Technical Overlay Metadata -->
+              <div class="absolute bottom-3 inset-x-3 text-white font-mono text-xs flex justify-between items-end pointer-events-none">
+                <div>
+                  <div class="text-[10px] tracking-widest text-cyan-300 font-semibold">RATIK RAUNIYAR</div>
+                  <div class="text-[9px] text-slate-300">ENG_SPEC // ML &amp; SYSTEMS</div>
+                </div>
+                <div class="text-[10px] bg-black/50 backdrop-blur px-2 py-0.5 rounded border border-white/20 text-emerald-400">
+                  VERIFIED
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Photo / Dot Matrix Toggle Controls -->
+            <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between font-mono text-xs text-slate-600">
+              <span class="text-[11px] text-slate-500">RENDER_MODE:</span>
+              <div class="flex gap-1.5 bg-slate-100 p-1 rounded-lg">
+                <button onclick="setPhotoView('photo')" id="btn-photo" class="px-2.5 py-1 rounded text-[11px] font-bold bg-white text-slate-900 shadow-sm transition">HD Photo</button>
+                <button onclick="setPhotoView('matrix')" id="btn-matrix" class="px-2.5 py-1 rounded text-[11px] text-slate-600 hover:text-slate-900 transition">Dot Matrix</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: ~/ whoami -->
+  <section id="whoami" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+    <div class="text-left mb-10">
+      <div class="badge-terminal px-3 py-1 rounded w-fit mb-2">~/ whoami</div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Engineering Philosophy &amp; Focus
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Terminal Window Box -->
+      <div class="lg:col-span-7 glass-panel rounded-2xl p-6 sm:p-8 font-mono text-xs sm:text-sm text-slate-800 leading-relaxed space-y-4">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-rose-400 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span>
+            <span class="ml-2 text-slate-500 text-xs">identity.sys — ratik@command-center</span>
+          </div>
+          <span class="text-slate-400 text-xs">UTF-8</span>
+        </div>
+
+        <p>
+          <span class="text-cyan-600 font-bold">$ cat bio.txt</span><br>
+          Hi, I'm <strong class="text-slate-950 font-bold">Ratik Rauniyar</strong>. I design and build machine learning systems, deep learning architectures, and scalable full-stack applications that solve real operational friction.
+        </p>
+        
+        <p>
+          My work spans <span class="text-cyan-700 font-semibold">Medical Computer Vision</span> (lesion-aware mammography detection on clinical datasets), <span class="text-cyan-700 font-semibold">Healthcare Management Ecosystems</span> (real-time queueing, cross-platform mobile, payment gateways), and <span class="text-cyan-700 font-semibold">Distributed Web Platforms</span>.
+        </p>
+
+        <div class="pt-2 space-y-1.5 text-slate-700">
+          <div><span class="text-cyan-600 font-bold">&gt;</span> <span class="text-slate-500">CURRENT_BUILDING:</span> <strong class="text-slate-900">Swasthall Ecosystem</strong> &amp; <strong class="text-slate-900">Mero Bites Platform</strong></div>
+          <div><span class="text-cyan-600 font-bold">&gt;</span> <span class="text-slate-500">RESEARCH_DOMAIN:</span> Medical Imaging, Deep Learning, Recommendation Engines</div>
+          <div><span class="text-cyan-600 font-bold">&gt;</span> <span class="text-slate-500">CORE_VALUE:</span> Clean architecture, verifiable engineering, and intuitive UX.</div>
+        </div>
+      </div>
+
+      <!-- What I Build Pillars -->
+      <div class="lg:col-span-5 flex flex-col gap-4">
+        
+        <div class="glass-panel glass-panel-hover p-5 rounded-xl border border-slate-200">
+          <div class="flex items-center gap-3 mb-2 font-mono text-xs text-cyan-600 font-bold">
+            <span class="p-2 rounded-lg bg-cyan-50 text-cyan-700">01</span>
+            <span>AI &amp; DEEP LEARNING</span>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base mb-1">Medical Image Intelligence</h3>
+          <p class="text-xs sm:text-sm text-slate-600">Convolutional networks for mammography cancer lesion localization, telemetry anomaly detection, and recommendation systems.</p>
+        </div>
+
+        <div class="glass-panel glass-panel-hover p-5 rounded-xl border border-slate-200">
+          <div class="flex items-center gap-3 mb-2 font-mono text-xs text-sky-600 font-bold">
+            <span class="p-2 rounded-lg bg-sky-50 text-sky-700">02</span>
+            <span>HEALTHCARE TELEMETRY</span>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base mb-1">Queue &amp; Tele-Health Apps</h3>
+          <p class="text-xs sm:text-sm text-slate-600">Cross-platform Flutter systems, real-time WebRTC audio/video consultations, and synchronized multi-role hospital dashboards.</p>
+        </div>
+
+        <div class="glass-panel glass-panel-hover p-5 rounded-xl border border-slate-200">
+          <div class="flex items-center gap-3 mb-2 font-mono text-xs text-indigo-600 font-bold">
+            <span class="p-2 rounded-lg bg-indigo-50 text-indigo-700">03</span>
+            <span>MODERN WEB PLATFORMS</span>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base mb-1">Next.js &amp; Cloud Systems</h3>
+          <p class="text-xs sm:text-sm text-slate-600">Full-stack web applications with TypeScript, edge APIs, distributed SQLite (Turso), and fluid animation systems.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: ~/ projects (MAJOR SHOWCASE) -->
+  <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 text-left">
+      <div>
+        <div class="badge-terminal px-3 py-1 rounded w-fit mb-2">~/ projects</div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Featured Engineering Showcases
+        </h2>
+      </div>
+      <p class="font-mono text-xs text-slate-500 max-w-xs">
+        VERIFIED REPOSITORIES &amp; ARCHITECTURES DEPLOYED ON GITHUB.
+      </p>
+    </div>
+
+    <!-- 2-Column Showcase Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+      
+      <!-- PROJECT 1: SWASTHALL -->
+      <div class="glass-panel glass-panel-hover rounded-2xl p-7 flex flex-col justify-between border border-slate-200/80 group">
+        <div>
+          <div class="flex justify-between items-start mb-4">
+            <span class="font-mono text-xs font-bold text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded border border-cyan-100">#01 // HEALTHCARE ECOSYSTEM</span>
+            <span class="font-mono text-xs text-slate-400">FLUTTER + SUPABASE</span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-slate-900 group-hover:text-cyan-600 transition mb-2.5">
+            Swasthall Healthcare Application
+          </h3>
+
+          <p class="text-sm text-slate-600 leading-relaxed mb-6 font-sans">
+            Cross-platform clinical management and patient queueing ecosystem. Integrates real-time patient status telemetry, multi-gateway payments (eSewa &amp; Khalti), Supabase edge functions, AI clinical assistants, and WebRTC video consultations.
+          </p>
+
+          <div class="flex flex-wrap gap-1.5 mb-6 font-mono text-xs">
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Flutter</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Dart</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Supabase</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">TypeScript</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">WebRTC</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">eSewa</span>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+          <a href="https://github.com/ratik12/swasthall-app" target="_blank" class="font-mono text-xs font-bold text-slate-900 hover:text-cyan-600 flex items-center gap-1.5 transition">
+            <span>github.com/ratik12/swasthall-app</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <span class="text-[11px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Active Repo</span>
+        </div>
+      </div>
+
+      <!-- PROJECT 2: MERO BITES -->
+      <div class="glass-panel glass-panel-hover rounded-2xl p-7 flex flex-col justify-between border border-slate-200/80 group">
+        <div>
+          <div class="flex justify-between items-start mb-4">
+            <span class="font-mono text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded border border-amber-100">#02 // COMMERCE PLATFORM</span>
+            <span class="font-mono text-xs text-slate-400">NEXT.js 16 + TURSO</span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-slate-900 group-hover:text-amber-600 transition mb-2.5">
+            Mero Bites Web Platform
+          </h3>
+
+          <p class="text-sm text-slate-600 leading-relaxed mb-6 font-sans">
+            Full-stack Next.js web application engineered with café minimalism aesthetics. Features distributed Turso libSQL edge database handling, fluid Framer Motion micro-interactions, restaurant partner intake pipelines, and responsive layout architecture.
+          </p>
+
+          <div class="flex flex-wrap gap-1.5 mb-6 font-mono text-xs">
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Next.js 16</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">React 19</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">TypeScript</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Tailwind CSS v4</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Turso libSQL</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Framer Motion</span>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+          <a href="https://github.com/ratik12/MERO-BITES" target="_blank" class="font-mono text-xs font-bold text-slate-900 hover:text-amber-600 flex items-center gap-1.5 transition">
+            <span>github.com/ratik12/MERO-BITES</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <span class="text-[11px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Active Repo</span>
+        </div>
+      </div>
+
+      <!-- PROJECT 3: INBREAST PROJECT -->
+      <div class="glass-panel glass-panel-hover rounded-2xl p-7 flex flex-col justify-between border border-slate-200/80 group">
+        <div>
+          <div class="flex justify-between items-start mb-4">
+            <span class="font-mono text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-1 rounded border border-sky-100">#03 // MEDICAL COMPUTER VISION</span>
+            <span class="font-mono text-xs text-slate-400">PYTORCH + CNN</span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-slate-900 group-hover:text-sky-600 transition mb-2.5">
+            INBreast Cancer Detection System
+          </h3>
+
+          <p class="text-sm text-slate-600 leading-relaxed mb-6 font-sans">
+            Lesion-aware mammography cancer detection model trained on the clinical INBreast dataset. Implements deep neural network architectures for precise region localization, artifact filtering, and mammographic density classification.
+          </p>
+
+          <div class="flex flex-wrap gap-1.5 mb-6 font-mono text-xs">
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Python</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">PyTorch</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Deep Learning</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Computer Vision</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">NumPy</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">OpenCV</span>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+          <a href="https://github.com/ratik12/INBREAST_Project" target="_blank" class="font-mono text-xs font-bold text-slate-900 hover:text-sky-600 flex items-center gap-1.5 transition">
+            <span>github.com/ratik12/INBREAST_Project</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <span class="text-[11px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Active Repo</span>
+        </div>
+      </div>
+
+      <!-- PROJECT 4: PREDICTIVE MAINTENANCE -->
+      <div class="glass-panel glass-panel-hover rounded-2xl p-7 flex flex-col justify-between border border-slate-200/80 group">
+        <div>
+          <div class="flex justify-between items-start mb-4">
+            <span class="font-mono text-xs font-bold text-teal-600 bg-teal-50 px-2.5 py-1 rounded border border-teal-100">#04 // ANOMALY FORECASTING</span>
+            <span class="font-mono text-xs text-slate-400">SCIKIT-LEARN + ML</span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-slate-900 group-hover:text-teal-600 transition mb-2.5">
+            Predictive Telemetry Pipeline
+          </h3>
+
+          <p class="text-sm text-slate-600 leading-relaxed mb-6 font-sans">
+            Telemetry-driven machine learning pipeline forecasting industrial equipment failure, temperature and pressure anomalies, and calculating remaining useful life (RUL) to prevent system downtime.
+          </p>
+
+          <div class="flex flex-wrap gap-1.5 mb-6 font-mono text-xs">
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Python</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Scikit-Learn</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Pandas</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Time Series</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Telemetry</span>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+          <a href="https://github.com/ratik12/predictive-maintenance" target="_blank" class="font-mono text-xs font-bold text-slate-900 hover:text-teal-600 flex items-center gap-1.5 transition">
+            <span>github.com/ratik12/predictive-maintenance</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <span class="text-[11px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Active Repo</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: ~/ toolbox (TECH STACK) -->
+  <section id="toolbox" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+    <div class="text-left mb-10">
+      <div class="badge-terminal px-3 py-1 rounded w-fit mb-2">~/ toolbox</div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Technical Skills &amp; Stack
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+      
+      <!-- Card 1: Programming Languages -->
+      <div class="glass-panel p-6 rounded-2xl border border-slate-200">
+        <div class="font-mono text-xs text-cyan-600 font-bold mb-3 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+          <span>PROGRAMMING LANGUAGES</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Python</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">TypeScript</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">JavaScript</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Dart</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">C++</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">SQL</span>
+        </div>
+      </div>
+
+      <!-- Card 2: AI / ML & Data -->
+      <div class="glass-panel p-6 rounded-2xl border border-slate-200">
+        <div class="font-mono text-xs text-sky-600 font-bold mb-3 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-sky-500"></span>
+          <span>AI / ML &amp; DATA SCIENCE</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">PyTorch</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">TensorFlow</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Scikit-Learn</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">OpenCV</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Pandas / NumPy</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Jupyter</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Frameworks & Web -->
+      <div class="glass-panel p-6 rounded-2xl border border-slate-200">
+        <div class="font-mono text-xs text-indigo-600 font-bold mb-3 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+          <span>FRAMEWORKS &amp; APPS</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Next.js 16</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">React 19</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Flutter</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">FastAPI</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Node.js</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Tailwind CSS</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Databases & Backend -->
+      <div class="glass-panel p-6 rounded-2xl border border-slate-200">
+        <div class="font-mono text-xs text-emerald-600 font-bold mb-3 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>DATABASES &amp; CLOUD</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Supabase</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">PostgreSQL</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Turso / libSQL</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">SQLite</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Vercel</span>
+        </div>
+      </div>
+
+      <!-- Card 5: Tools & Architecture -->
+      <div class="glass-panel p-6 rounded-2xl border border-slate-200">
+        <div class="font-mono text-xs text-teal-600 font-bold mb-3 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+          <span>DEVOPS &amp; TOOLS</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Git / GitHub</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">GitHub Actions</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Docker</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Linux</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Postman</span>
+        </div>
+      </div>
+
+      <!-- Card 6: Methodologies -->
+      <div class="glass-panel p-6 rounded-2xl border border-slate-200">
+        <div class="font-mono text-xs text-slate-600 font-bold mb-3 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+          <span>CORE PRACTICES</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">DSA &amp; Optimization</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">Model Evaluation</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">RESTful Edge APIs</span>
+          <span class="px-3 py-1.5 rounded-lg bg-slate-100/90 text-slate-800 text-xs font-mono font-medium">CI / CD Pipelines</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: ~/ skill radar & telemetry -->
+  <section id="radars" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+    <div class="text-left mb-10">
+      <div class="badge-terminal px-3 py-1 rounded w-fit mb-2">~/ skill radar</div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Dual Skill &amp; Language Metrics
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Radar 1: Self-Rated Skills -->
+      <div class="glass-panel p-6 rounded-2xl border border-slate-200 text-left">
+        <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100 font-mono text-xs">
+          <span class="text-slate-900 font-bold">RADAR // DOMAIN EXPERTISE</span>
+          <span class="text-cyan-600">SELF-ASSESSED</span>
+        </div>
+        <div class="flex justify-center">
+          <img src="assets/radar-light.svg" alt="Skill Radar Chart" class="max-w-full h-auto" />
+        </div>
+      </div>
+
+      <!-- Radar 2: Live GitHub Language Counts -->
+      <div class="glass-panel p-6 rounded-2xl border border-slate-200 text-left">
+        <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100 font-mono text-xs">
+          <span class="text-slate-900 font-bold">RADAR // LANGUAGE MIX</span>
+          <span class="text-emerald-600">GITHUB API LIVE</span>
+        </div>
+        <div class="flex justify-center">
+          <img src="assets/radar-langs-light.svg" alt="Language Radar Chart" class="max-w-full h-auto" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: INTERACTIVE COMMAND TERMINAL -->
+  <section id="terminal-section" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto relative z-10">
+    <div class="text-left mb-6">
+      <div class="badge-terminal px-3 py-1 rounded w-fit mb-2">~/ terminal</div>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        Interactive Command Shell
+      </h2>
+    </div>
+
+    <div class="glass-panel rounded-2xl overflow-hidden border border-slate-300 shadow-2xl font-mono text-xs sm:text-sm text-left">
+      <!-- Titlebar -->
+      <div class="bg-slate-900 px-4 py-3 flex items-center justify-between text-slate-400">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+          <span class="ml-2 text-slate-300">ratik@terminal ~ type 'help'</span>
+        </div>
+        <span class="text-[11px] text-slate-500">zsh</span>
+      </div>
+
+      <!-- Terminal Body -->
+      <div id="term-output" class="bg-slate-950 p-5 text-slate-300 min-h-[220px] max-h-[360px] overflow-y-auto space-y-2">
+        <div class="text-slate-400">Welcome to <span class="text-cyan-400 font-bold">Ratik Rauniyar's</span> Developer Shell v2.4. Type <span class="text-amber-300 font-bold">help</span> to list commands.</div>
+      </div>
+
+      <!-- Prompt Input -->
+      <div class="bg-slate-900/95 px-5 py-3 border-t border-slate-800 flex items-center gap-2">
+        <span class="text-cyan-400 font-bold">ratik:~$</span>
+        <input id="term-input" type="text" autofocus placeholder="try: 'projects', 'whoami', 'skills', 'contact', 'clear'" class="bg-transparent text-white focus:outline-none w-full font-mono text-xs sm:text-sm" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: ~/ contact -->
+  <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center relative z-10">
+    <div class="glass-panel rounded-3xl p-8 sm:p-14 border border-slate-200/90 shadow-2xl relative overflow-hidden">
+      
+      <div class="scan-line"></div>
+
+      <div class="badge-terminal px-3 py-1 rounded mx-auto w-fit mb-4">~/ contact</div>
+      
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+        LET'S BUILD SOMETHING.
+      </h2>
+      
+      <p class="text-slate-600 max-w-xl mx-auto text-sm sm:text-base mb-8">
+        Always interested in building machine learning architectures, healthcare applications, or discussing technical collaborations.
+      </p>
+
+      <!-- Contact Action Grid -->
+      <div class="flex flex-wrap justify-center gap-4">
+        
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/ratik-rauniyar-005ab5217" target="_blank" class="px-6 py-3.5 rounded-xl bg-slate-900 text-white font-mono text-sm hover:bg-cyan-600 transition flex items-center gap-2 shadow-lg">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          <span>LinkedIn Profile</span>
+        </a>
+
+        <!-- Email Direct -->
+        <a href="mailto:ratik.rauniyar@gmail.com" class="px-6 py-3.5 rounded-xl glass-panel text-slate-900 font-mono text-sm hover:bg-white hover:border-cyan-400 transition flex items-center gap-2 border border-slate-300">
+          <svg class="w-4 h-4 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span>ratik.rauniyar@gmail.com</span>
+        </a>
+
+        <!-- Copy Email Button -->
+        <button onclick="copyEmail()" id="btn-copy-email" class="px-4 py-3.5 rounded-xl bg-slate-100 text-slate-700 font-mono text-xs hover:bg-slate-200 transition">
+          Copy Email
+        </button>
+
+      </div>
+
+      <div class="mt-10 pt-6 border-t border-slate-100 text-xs font-mono text-slate-400">
+        © 2026 Ratik Rauniyar • Built with precision &amp; modern web standards
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Client Script for Interactive Logic & Terminal -->
+  <script>
+    // Cursor follower glow
+    const glow = document.getElementById('cursor-glow');
+    window.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    // Toggle Photo View mode (HD Photo vs Dot Matrix)
+    function setPhotoView(mode) {
+      const img = document.getElementById('profile-img');
+      const btnPhoto = document.getElementById('btn-photo');
+      const btnMatrix = document.getElementById('btn-matrix');
+
+      if (mode === 'matrix') {
+        img.src = 'assets/portrait.svg';
+        btnMatrix.className = 'px-2.5 py-1 rounded text-[11px] font-bold bg-white text-slate-900 shadow-sm transition';
+        btnPhoto.className = 'px-2.5 py-1 rounded text-[11px] text-slate-600 hover:text-slate-900 transition';
+      } else {
+        img.src = 'assets/me.jpg';
+        btnPhoto.className = 'px-2.5 py-1 rounded text-[11px] font-bold bg-white text-slate-900 shadow-sm transition';
+        btnMatrix.className = 'px-2.5 py-1 rounded text-[11px] text-slate-600 hover:text-slate-900 transition';
+      }
+    }
+
+    // Copy email helper
+    function copyEmail() {
+      navigator.clipboard.writeText('ratik.rauniyar@gmail.com');
+      const btn = document.getElementById('btn-copy-email');
+      btn.innerText = 'Copied! ✓';
+      setTimeout(() => { btn.innerText = 'Copy Email'; }, 2000);
+    }
+
+    // Interactive Terminal Shell
+    const termInput = document.getElementById('term-input');
+    const termOutput = document.getElementById('term-output');
+
+    const commands = {
+      'help': 'Available commands: whoami, projects, skills, contact, clear, sudo hire',
+      'whoami': 'Ratik Rauniyar — Machine Learning Engineer & Full-Stack Systems Architect. Focused on medical deep learning and telemetry healthcare applications.',
+      'projects': 'Major Projects:\n1. swasthall-app: Cross-platform hospital telemetry & tele-health system.\n2. MERO-BITES: Next.js 16 café commerce platform with Turso database.\n3. INBREAST_Project: Mammography cancer detection using deep CNNs.\n4. predictive-maintenance: Machine failure forecasting & anomaly detection.',
+      'skills': 'Languages: Python, TypeScript, JavaScript, Dart, C++, SQL\nFrameworks: PyTorch, TensorFlow, Next.js 16, Flutter, FastAPI\nDatabases: Supabase, PostgreSQL, Turso libSQL',
+      'contact': 'Email: ratik.rauniyar@gmail.com\nLinkedIn: https://www.linkedin.com/in/ratik-rauniyar-005ab5217\nGitHub: https://github.com/ratik12',
+      'sudo hire': 'Permission granted! Let\'s build the future together. Reaching out to ratik.rauniyar@gmail.com...',
+    };
+
+    termInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = termInput.value.trim().toLowerCase();
+        if (!val) return;
+
+        if (val === 'clear') {
+          termOutput.innerHTML = '';
+          termInput.value = '';
+          return;
+        }
+
+        const cmdLine = document.createElement('div');
+        cmdLine.innerHTML = `<span class="text-cyan-400 font-bold">ratik:~$</span> <span class="text-white">${val}</span>`;
+        termOutput.appendChild(cmdLine);
+
+        const respLine = document.createElement('div');
+        respLine.className = 'text-slate-300 whitespace-pre-wrap pl-3';
+
+        if (commands[val]) {
+          respLine.innerText = commands[val];
+        } else {
+          respLine.innerText = `command not found: ${val}. Type 'help' for options.`;
+          respLine.className += ' text-rose-400';
+        }
+
+        termOutput.appendChild(respLine);
+        termInput.value = '';
+        termOutput.scrollTop = termOutput.scrollHeight;
+      }
+    });
+  </script>
+
+</body>
+</html>
