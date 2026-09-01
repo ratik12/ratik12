@@ -10,7 +10,7 @@
 
 <!-- NAME / TAGLINE - animated typing -->
 <a href="https://github.com/ratik12">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=26&duration=2600&pause=900&color=39D353&center=true&vCenter=true&width=580&lines=Ratik+Rauniyar;Machine+Learning+%26+Software+Engineer;Building+Intelligent+Systems;01100011+01101111+01100100+01101101+01100101" alt="typing banner">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=26&duration=2600&pause=900&color=00D2FF&center=true&vCenter=true&width=580&lines=Ratik+Rauniyar;Machine+Learning+%26+Software+Engineer;Building+Intelligent+Systems;01100011+01101111+01100100+01101101+01100101" alt="typing banner">
 </a>
 
 <br>
@@ -20,7 +20,7 @@
 <a href="mailto:ratik.rauniyar@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"></a>
 <a href="https://github.com/ratik12"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
 
-<img src="https://komarev.com/ghpvc/?username=ratik12&style=flat&color=39d353&label=profile+views" alt="profile views">
+<img src="https://komarev.com/ghpvc/?username=ratik12&style=flat&color=00D2FF&label=profile+views" alt="profile views">
 
 </div>
 
